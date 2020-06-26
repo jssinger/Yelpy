@@ -19,6 +19,8 @@ class Restaurant{
     var reviews: Int
     var price: String
     var address: String
+    var city: String
+    var zip: String
     
     init(dict: [String: Any]) {
         imageURL = URL(string: dict["image_url"] as! String)
@@ -30,6 +32,8 @@ class Restaurant{
         price = dict["price"] as? String ?? ""
         let locations = dict["location"] as! Dictionary<String, Any>
         address = locations["address1"] as! String
+        city = locations["city"] as! String
+        zip = locations["zip_code"] as! String
         mainCategory = Restaurant.getMainCategory(dict: dict)
     }
     

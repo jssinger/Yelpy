@@ -11,7 +11,7 @@ import Foundation
 
 struct API {
     
-    static func getRestaurants(completion: @escaping ([Restaurant]?) -> Void) {
+    static func getRestaurants(offset: Int, completion: @escaping ([Restaurant]?) -> Void) {
         
         // ––––– TODO: Add your own API key!
         let apikey = "yULOTEpZTW_EX3mlENWMxIqoIbAsmn9Jgxm1nCVvNGq7M5ubNu9PLDjR896YhSh3ZbmWwNShWYwWu-D6Pgc0PZvsFxSQPloL2oDRsbl8I54eR4vrvJbaoPXuaVzhXnYx"
@@ -21,7 +21,7 @@ struct API {
         let long = -122.431297
         
         
-        let url = URL(string: "https://api.yelp.com/v3/transactions/delivery/search?latitude=\(lat)&longitude=\(long)")!
+        let url = URL(string: "https://api.yelp.com/v3/businesses/search?latitude=\(lat)&longitude=\(long)&offset=\(offset)")!
         
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         
@@ -38,7 +38,7 @@ struct API {
 
                 // Get array of restaurant dictionaries
                 let restDictionaries = dataDictionary["businesses"] as! [[String: Any]]
-
+                
                 // Variable to store array of Restaurants
                 var restaurants: [Restaurant] = []
 
