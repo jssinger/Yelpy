@@ -72,7 +72,6 @@ class RestaurantsViewController: UIViewController, UITableViewDelegate, UITableV
 
         if offsetY > contentHeight - scrollView.frame.height{
             if(!fetchingMore){
-                print ("fetchingMore!")
                 beginBatchFetching()
             }
         }
