@@ -17,6 +17,7 @@ class RestaurantsViewController: UIViewController, UITableViewDelegate, UITableV
     
     // –––––– TODO: Update restaurants Array to an array of Restaurants
     var restaurantsArray: [Restaurant] = []
+    var fetchingMore = false
     
     
     override func viewDidLoad() {
@@ -30,12 +31,13 @@ class RestaurantsViewController: UIViewController, UITableViewDelegate, UITableV
     
     // ––––– TODO: Update API to get an array of restaurant objects
     func getAPIData() {
-        API.getRestaurants() { (restaurants) in
+        API.getRestaurants(offset: restaurantsArray.count) { (restaurants) in
             guard let restaurants = restaurants else {
                 return
             }
-            self.restaurantsArray = restaurants
+            self.restaurantsArray += restaurants
             self.tableView.reloadData()
+            self.fetchingMore = false
         }
     }
     
@@ -63,6 +65,21 @@ class RestaurantsViewController: UIViewController, UITableViewDelegate, UITableV
              detailViewController.r = r
          }
      }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+
+        if offsetY > contentHeight - scrollView.frame.height{
+            if(!fetchingMore){
+                beginBatchFetching()
+            }
+        }
+    }
+    func beginBatchFetching(){
+        fetchingMore = true
+        getAPIData()
+    }
     
     
     
