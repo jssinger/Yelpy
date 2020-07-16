@@ -1,4 +1,4 @@
-# Flix
+# Yelpy
 
 Yelpy is an iOS app that allows users to browse local restaurants 
 
